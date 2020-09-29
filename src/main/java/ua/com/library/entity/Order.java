@@ -1,4 +1,4 @@
-package ua.com.library.model.entity;
+package ua.com.library.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -26,7 +26,7 @@ public class Order {
 
     @ManyToOne/*(targetEntity = Book.class)*/
     @JoinColumn(name = "book_id", nullable = false)
-    private  Book book;
+    private Book book;
 
     @Column(name = "returning_date", nullable = false)
     private java.sql.Date returningDate;

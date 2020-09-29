@@ -3,10 +3,8 @@ package ua.com.library;
 import org.hibernate.*;
 import org.hibernate.boot.*;
 import org.hibernate.boot.registry.*;
-//import ua.com.library.model.entity.Order;
-import ua.com.library.model.entity.User;
-
-import java.util.ArrayList;
+//import ua.com.library.entity.Order;
+import ua.com.library.entity.User;
 
 public class HibernateForwardEngineeringTest {
 

@@ -1,4 +1,4 @@
-package ua.com.library.model.entity;
+package ua.com.library.entity;
 
 
 

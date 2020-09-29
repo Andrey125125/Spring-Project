@@ -9,10 +9,10 @@
         <property name="hibernate.show_sql">true</property>
         <property name="hibernate.format_sql">true</property>
 
-        <mapping class="ua.com.library.model.entity.User" />
-        <mapping class="ua.com.library.model.entity.Order" />
-        <mapping class="ua.com.library.model.entity.Book" />
-        <mapping class="ua.com.library.model.entity.Author" />
+        <mapping class="ua.com.library.entity.User" />
+        <mapping class="ua.com.library.entity.Order" />
+        <mapping class="ua.com.library.entity.Book" />
+        <mapping class="ua.com.library.entity.Author" />
 
     </session-factory>
 </hibernate-configuration>
