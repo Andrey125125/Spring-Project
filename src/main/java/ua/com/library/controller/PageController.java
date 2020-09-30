@@ -14,6 +14,7 @@ public class PageController {
         return "index.html";
     }
 
+
     @RequestMapping("/reader")
     public String readerPage() {return "reader.html";}
 
