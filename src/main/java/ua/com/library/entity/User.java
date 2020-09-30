@@ -7,7 +7,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -15,6 +14,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Entity
 @Table(name = "user")
 public class User implements UserDetails {
@@ -62,6 +62,10 @@ public class User implements UserDetails {
     @Override
     public String getUsername() {
         return login;
+    }
+    @Override
+    public String getPassword() {
+        return password;
     }
 
     @Override

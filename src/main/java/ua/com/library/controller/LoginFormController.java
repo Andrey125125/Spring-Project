@@ -1,46 +1,33 @@
 package ua.com.library.controller;
 
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import ua.com.library.dto.UserDTO;
-import ua.com.library.entity.User;
-import ua.com.library.service.UserService;
+import org.springframework.web.servlet.ModelAndView;
 
-import java.util.Optional;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+@Controller
 @Slf4j
-@RestController
-@RequestMapping(value = "/")
+@AllArgsConstructor(onConstructor = @__(@Autowired))
 public class LoginFormController {
 
-    private final UserService userService;
-
-    @Autowired
-    public LoginFormController(UserService userService) {
-        this.userService = userService;
+    @RequestMapping(value = "/login")
+    public String login() {
+        return "/index";
     }
 
-    @ResponseStatus(HttpStatus.CREATED)
-    //@RequestMapping(value = "login", method = RequestMethod.POST)
-    @PostMapping(value = "login")
-    public void loginFormController(UserDTO user){
-        Optional<User> user1 = userService.findByLoginAndPassword(user.getLogin(), user.getPassword());
 
-        if (! user1.isPresent());
-
-/*       userService.saveNewUser(User.builder()
-                .firstName("Ann")
-                .lastName("Reizer")
-                .email("AnnReizer@testing.ua")
-                .role(RoleType.ROLE_USER)
-                .build());*/
+    @GetMapping("/logout")
+    public ModelAndView logout(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            session.invalidate();
+        }
+        return new ModelAndView("redirect:/");
     }
-
-//    @RequestMapping(value = "user", method = RequestMethod.GET)
-//    public UsersDTO getAllUser(){
-//
-//        return userService.getAllUsers();
-//    }
 }
