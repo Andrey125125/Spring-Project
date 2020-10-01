@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -54,4 +55,15 @@ public class Book {
 
     @OneToMany(mappedBy = "book")
     private List<Order> orders;
+
+
+
+    public void addAuthor(Author author){
+        if (authors==null){
+            authors = new ArrayList<Author>();
+        }
+
+        authors.add(author);
+        author.addBook(this);
+    }
 }

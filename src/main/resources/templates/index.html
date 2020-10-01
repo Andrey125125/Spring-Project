@@ -1,20 +1,25 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" th:with="lang=${#locale.language}" th:lang="${lang}"
+      contentType="text/html;charset=UTF-8">
 <head th:fragment="header">
     <title ></title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-<!--    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>-->
-<!--    <link rel="stylesheet" th:href="@{/css/style.css}" href="/css/style.css"/>-->
+
 </head>
 <body>
+<div th:include="header"></div>
+
+<p  th:text='#{title}'></p>
 
 <div>
+
+
 
         <FORM class="px-4 py-3" method="POST" th:action="@{/login}">
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">enter your login and password</label>
                 <div class="col-sm-10">
-                    <input name="login" type="login" size="35" placeholder="E-mail" autocomplete="on" autofocus
+                    <input name="login" type="login" size="35" placeholder="login" autocomplete="on" autofocus
                            required>
                 </div>
             </div>

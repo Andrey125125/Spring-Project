@@ -46,11 +46,25 @@ public class UserService implements UserDetailsService {
 
         return userOptional.orElseThrow( () -> new UsernameNotFoundException("your username is empty"));
 
-//
-//        return User.builder().login("admin").password("admin").email("a@gmail.com").name("andrey").surname("sokorenko")
-//                .role(User.Role.ADMIN).id(1l).build();
-
-
 
     }
+
+
+
+    public User successfullyRegistered(User user) throws RuntimeException {
+
+        if (userRepository.existsByLoginOrEmail(user.getLogin(), user.getEmail())){
+            throw new RuntimeException("email or login is already taken");
+        }
+
+        user.setRole(User.Role.READER);
+
+        user.setPassword(encoder.encode(user.getPassword()));
+
+        userRepository.save(user);
+
+        return user;
+
+    }
+
 }
