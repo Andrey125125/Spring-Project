@@ -1,10 +1,67 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+<html xmlns:th="http://www.thymeleaf.org" th:with="lang=${#locale.language}" th:lang="${lang}"
+      contentType="text/html;charset=UTF-8">
+<head th:fragment="header">
+    <title ></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
 </head>
 <body>
-admin page
+<div th:include="header"></div>
+
+
+
+
+
+
+
+
+<table>
+    <thead>
+    <tr>
+        <th th:text="#{book.name}"></th>
+        <th th:text="#{book.publisher}"></th>
+        <th th:text="#{book.date}"></th>
+        <th th:text="#{book.quantity}"></th>
+<!--        <th th:text="#{book.authors}"></th>-->
+        <th th:text="#{action.delete_book}"></th>
+        <th th:text="#{action.edit_book}"></th>
+    </tr>
+    </thead>
+    <tr th:each="book : ${books}">
+
+        <td th:text="${book.name}"></td>
+        <td th:text="${book.publisher}"></td>
+
+
+        <td th:text="${book.publishingDate}"></td>
+        <td th:text="${book.quantity}"></td>
+<!--        <td th:text="${book.authors}"></td>-->
+
+        <td ><a th:href="@{'/admin/delete/{id}'(id=${book.id})}">delete</a></td>
+        <td ><a th:href="@{'/admin/edit/{id}'(id=${book.id})}">edit</a></td>
+
+    </tr>
+</table>
+
+
+<div>
+    <div th:if="${currentPage != 1}">
+        <a class="page-link" th:href="@{/admin(size=${books.size}, page=${currentPage - 1})}"> << </a>
+    </div>
+
+    <ul th:if="${books.totalPages > 0}"
+        th:each="pageNumber : ${pageNumbers}">
+        <li th:classappend="${pageNumber==books.number + 1} ? 'active'">
+            <a th:href="@{/admin(size=${books.size}, page=${pageNumber})}"
+               th:text=${pageNumber}
+            ></a>
+        </li>
+    </ul>
+    <div th:if="${currentPage < books.totalPages}">
+        <a class="page-link" th:href="@{/admin(size=${books.size}, page=${currentPage + 1})}"> >> </a>
+    </div>
+</div>
+
 </body>
 </html>

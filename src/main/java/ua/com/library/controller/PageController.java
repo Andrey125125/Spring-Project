@@ -17,9 +17,9 @@ public class PageController {
 
     @RequestMapping("/reader")
     public String readerPage() {return "reader.html";}
-
-    @RequestMapping("/admin")
-    public String adminPage() {return "admin.html";}
+//
+//    @RequestMapping("/admin")
+//    public String adminPage() {return "admin.html";}
 
 
 //    @RequestMapping("/all_user")
