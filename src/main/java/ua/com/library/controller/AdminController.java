@@ -30,22 +30,7 @@ public class AdminController {
 
 
 
-//    @GetMapping("/bus/edit/{code}")
-//    public String editBus(Model model, @PathVariable Integer code, @RequestParam("page") Optional<Integer> page) {
-//        model.addAttribute("editCode", code);
-//        addPagination(model, page);
-//        return "/bus";
-//    }
-//
-//    @PostMapping("/bus/edit/{code}")
-//    public ModelAndView updateBus(Model model, @PathVariable Integer code,
-//                                  @RequestParam("changeMileage") Double changeMileage, @RequestParam("changeConsumption") Double changeConsumption,
-//                                  @RequestParam("changeDriver") Long idDriver,
-//                                  @RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size) {
-//        bookService.changeBus(code, changeMileage, changeConsumption, idDriver);
-//        addPagination(model, page);
-//        return new ModelAndView("redirect:/bus");
-//    }
+
 
     private void addPagination(Model model, Optional<Integer> current, String sortBy) {
         int currentPage = current.orElse(1);
