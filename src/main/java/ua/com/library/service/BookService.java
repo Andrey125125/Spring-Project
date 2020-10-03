@@ -22,10 +22,16 @@ public class BookService {
 
     BookRepository bookRepository;
 
-    public Page<Book> resolvePages(int currentPage, int pageSize, String sortBy) {
-        PageRequest sorted = PageRequest.of(currentPage - 1, pageSize, Sort.by(sortBy));
+    public Page<Book> resolvePages(int currentPage, int pageSize, String sortBy, String searchBy) {
 
-        return bookRepository.findAll(sorted);
+        PageRequest sorted = PageRequest.of(currentPage - 1, pageSize, Sort.by(sortBy));
+        if(searchBy.equals("")){
+            return bookRepository.findAll(sorted);
+        } else {
+            return bookRepository.findAllByNameLike(searchBy, sorted);
+        }
+
+
     }
 
     public Optional<List<Integer>> findPageNumbers(int quantity){

@@ -18,7 +18,7 @@
         <option th:value="publishing_date" th:text="date" th:selected="${sortBy == 'publishing_date'}"></option>
     </select>
 
-        <input type="text" id="searchValue" name="searchValue"  />
+        <input type="text" id="searchBy" name="searchBy" th:value="${searchBy}" />
     <button type="submit" th:text="search"></button>
 </form>
 
@@ -55,19 +55,19 @@
 
 <div>
     <div th:if="${currentPage != 1}">
-        <a class="page-link" th:href="@{/admin(size=${books.size}, currentPage=${currentPage - 1}, sortBy=${sortBy}, searchValue=${searchValue})}"> << </a>
+        <a class="page-link" th:href="@{/admin(size=${books.size}, currentPage=${currentPage - 1}, sortBy=${sortBy}, searchBy=${searchBy})}"> << </a>
     </div>
 
     <ul th:if="${books.totalPages > 0}"
         th:each="pageNumber : ${pageNumbers}">
         <li th:classappend="${pageNumber==books.number + 1} ? 'active'">
-            <a th:href="@{/admin(size=${books.size}, currentPage=${pageNumber}, sortBy=${sortBy}, searchValue=${searchValue})}"
+            <a th:href="@{/admin(size=${books.size}, currentPage=${pageNumber}, sortBy=${sortBy}, searchBy=${searchBy})}"
                th:text=${pageNumber}
             ></a>
         </li>
     </ul>
     <div th:if="${currentPage < books.totalPages}">
-        <a class="page-link" th:href="@{/admin(size=${books.size}, currentPage=${currentPage + 1}, sortBy=${sortBy}, searchValue=${searchValue})}"> >> </a>
+        <a class="page-link" th:href="@{/admin(size=${books.size}, currentPage=${currentPage + 1}, sortBy=${sortBy}, searchBy=${searchBy})}"> >> </a>
     </div>
 </div>
 

@@ -13,6 +13,6 @@ import java.util.List;
 public interface BookRepository extends JpaRepository<Book, Long> {
 
 
-    List<Book> findAllByNameLike(String name, Pageable pageable);
+    Page<Book> findAllByNameLike(String name, Pageable pageable);
 
 }

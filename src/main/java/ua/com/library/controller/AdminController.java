@@ -25,24 +25,17 @@ public class AdminController {
     public String viewBuses(Model model,
                             @RequestParam(defaultValue = "1") Integer currentPage,
                             @RequestParam(defaultValue = "name") String sortBy,
-                            @RequestParam Optional<String> searchValue) {
+                            @RequestParam(defaultValue = "") String searchBy) {
 
-        Page<Book> books = bookService.resolvePages(currentPage, pageSize, sortBy);
+        Page<Book> books = bookService.resolvePages(currentPage, pageSize, sortBy, searchBy);
         model.addAttribute("books", books);
         model.addAttribute("currentPage", currentPage);
         model.addAttribute("sortBy", sortBy);
-        model.addAttribute("searchValue", searchValue.orElse(""));
-//        int totalPages = books.getTotalPages();
-//        if (totalPages > 0) {
-//            List<Integer> pageNumbers = IntStream
-//                    .rangeClosed(1, totalPages)
-//                    .boxed()
-//                    .collect(Collectors.toList());
-//            model.addAttribute("pageNumbers", pageNumbers);
-//        }
+        model.addAttribute("searchBy", searchBy);
 
         bookService.findPageNumbers(books.getTotalPages())
                 .ifPresent(pageNumbers -> model.addAttribute("pageNumbers", pageNumbers));
+
         return "/admin";
     }
 
