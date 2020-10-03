@@ -67,19 +67,19 @@
 
 <div>
     <div th:if="${currentPage != 1}">
-        <a class="page-link" th:href="@{/admin(size=${books.size}, page=${currentPage - 1}, sortBy=${sortBy}, searchValue=${searchValue})}"> << </a>
+        <a class="page-link" th:href="@{/admin(size=${books.size}, currentPage=${currentPage - 1}, sortBy=${sortBy}, searchValue=${searchValue})}"> << </a>
     </div>
 
     <ul th:if="${books.totalPages > 0}"
         th:each="pageNumber : ${pageNumbers}">
         <li th:classappend="${pageNumber==books.number + 1} ? 'active'">
-            <a th:href="@{/admin(size=${books.size}, page=${pageNumber}, sortBy=${sortBy}, searchValue=${searchValue})}"
+            <a th:href="@{/admin(size=${books.size}, currentPage=${pageNumber}, sortBy=${sortBy}, searchValue=${searchValue})}"
                th:text=${pageNumber}
             ></a>
         </li>
     </ul>
     <div th:if="${currentPage < books.totalPages}">
-        <a class="page-link" th:href="@{/admin(size=${books.size}, page=${currentPage + 1}, sortBy=${sortBy}, searchValue=${searchValue})}"> >> </a>
+        <a class="page-link" th:href="@{/admin(size=${books.size}, currentPage=${currentPage + 1}, sortBy=${sortBy}, searchValue=${searchValue})}"> >> </a>
     </div>
 </div>
 

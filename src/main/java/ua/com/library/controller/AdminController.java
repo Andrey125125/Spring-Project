@@ -20,24 +20,14 @@ import java.util.stream.IntStream;
 public class AdminController {
 
     private final BookService bookService;
+    private final static int pageSize = 2;
 
     @GetMapping("/admin")
-    public String viewBuses(Model model, @RequestParam Optional<Integer> page,
+    public String viewBuses(Model model,
+                            @RequestParam(defaultValue = "1") Integer currentPage,
                             @RequestParam(defaultValue = "name") String sortBy,
                             @RequestParam Optional<String> searchValue) {
 
-        addPagination(model, page, sortBy, searchValue);
-        return "/admin";
-    }
-
-
-
-
-
-    private void addPagination(Model model, Optional<Integer> current, String sortBy,
-                               Optional<String> searchValue) {
-        int currentPage = current.orElse(1);
-        int pageSize = 2;
         Page<Book> books = bookService.showPageList(currentPage, pageSize, sortBy);
         model.addAttribute("books", books);
         model.addAttribute("currentPage", currentPage);
@@ -45,10 +35,14 @@ public class AdminController {
         model.addAttribute("searchValue", searchValue.orElse(""));
         int totalPages = books.getTotalPages();
         if (totalPages > 0) {
-            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
+            List<Integer> pageNumbers = IntStream
+                    .rangeClosed(1, totalPages)
                     .boxed()
                     .collect(Collectors.toList());
             model.addAttribute("pageNumbers", pageNumbers);
         }
+        return "/admin";
     }
+
+
 }
