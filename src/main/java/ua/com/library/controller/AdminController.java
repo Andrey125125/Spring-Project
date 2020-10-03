@@ -22,9 +22,11 @@ public class AdminController {
     private final BookService bookService;
 
     @GetMapping("/admin")
-    public String viewBuses(Model model, @RequestParam("page") Optional<Integer> page,
-                            @RequestParam(value = "sortBy", defaultValue = "name") String sortBy ) {
-        addPagination(model, page, sortBy);
+    public String viewBuses(Model model, @RequestParam Optional<Integer> page,
+                            @RequestParam(defaultValue = "name") String sortBy,
+                            @RequestParam Optional<String> searchValue) {
+
+        addPagination(model, page, sortBy, searchValue);
         return "/admin";
     }
 
@@ -32,12 +34,15 @@ public class AdminController {
 
 
 
-    private void addPagination(Model model, Optional<Integer> current, String sortBy) {
+    private void addPagination(Model model, Optional<Integer> current, String sortBy,
+                               Optional<String> searchValue) {
         int currentPage = current.orElse(1);
         int pageSize = 2;
         Page<Book> books = bookService.showPageList(currentPage, pageSize, sortBy);
         model.addAttribute("books", books);
         model.addAttribute("currentPage", currentPage);
+        model.addAttribute("sortBy", sortBy);
+        model.addAttribute("searchValue", searchValue.orElse(""));
         int totalPages = books.getTotalPages();
         if (totalPages > 0) {
             List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)

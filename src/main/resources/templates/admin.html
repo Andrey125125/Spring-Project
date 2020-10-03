@@ -11,8 +11,28 @@
 
 
 
+<!--<form th:action="@{/admin}">-->
+<!--<select th:field="*{sortBy}">-->
+<!--    <option th:value="name" th:text="name" selected></option>-->
+<!--    <option th:value="publisher" th:text="publisher"></option>-->
+<!--    <option th:value="publishing_date" th:text="date"></option>-->
+<!--</select>-->
 
+<!--    <button id="id_btnReg" type="submit" name="sortBy" th:value="*{sortBy}"-->
+<!--            th:text="find"></button>-->
 
+<!--</form>-->
+<form th:action="@{/admin}">
+    <span th:text="admin.sortby"></span>
+    <select id="sortBy" name="sortBy">
+        <option th:value="name" th:text="name" th:selected="${sortBy == 'name'}"></option>
+        <option th:value="publisher" th:text="publisher" th:selected="${sortBy == 'publisher'}"></option>
+        <option th:value="publishing_date" th:text="date" th:selected="${sortBy == 'publishing_date'}"></option>
+    </select>
+
+        <input type="text" id="searchValue" name="searchValue"  />
+    <button type="submit" th:text="search"></button>
+</form>
 
 
 
@@ -47,19 +67,19 @@
 
 <div>
     <div th:if="${currentPage != 1}">
-        <a class="page-link" th:href="@{/admin(size=${books.size}, page=${currentPage - 1})}"> << </a>
+        <a class="page-link" th:href="@{/admin(size=${books.size}, page=${currentPage - 1}, sortBy=${sortBy}, searchValue=${searchValue})}"> << </a>
     </div>
 
     <ul th:if="${books.totalPages > 0}"
         th:each="pageNumber : ${pageNumbers}">
         <li th:classappend="${pageNumber==books.number + 1} ? 'active'">
-            <a th:href="@{/admin(size=${books.size}, page=${pageNumber})}"
+            <a th:href="@{/admin(size=${books.size}, page=${pageNumber}, sortBy=${sortBy}, searchValue=${searchValue})}"
                th:text=${pageNumber}
             ></a>
         </li>
     </ul>
     <div th:if="${currentPage < books.totalPages}">
-        <a class="page-link" th:href="@{/admin(size=${books.size}, page=${currentPage + 1})}"> >> </a>
+        <a class="page-link" th:href="@{/admin(size=${books.size}, page=${currentPage + 1}, sortBy=${sortBy}, searchValue=${searchValue})}"> >> </a>
     </div>
 </div>
 
