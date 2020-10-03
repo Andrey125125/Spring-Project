@@ -6,7 +6,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 import ua.com.library.entity.Book;
 import ua.com.library.service.BookService;
 
@@ -28,19 +27,22 @@ public class AdminController {
                             @RequestParam(defaultValue = "name") String sortBy,
                             @RequestParam Optional<String> searchValue) {
 
-        Page<Book> books = bookService.showPageList(currentPage, pageSize, sortBy);
+        Page<Book> books = bookService.resolvePages(currentPage, pageSize, sortBy);
         model.addAttribute("books", books);
         model.addAttribute("currentPage", currentPage);
         model.addAttribute("sortBy", sortBy);
         model.addAttribute("searchValue", searchValue.orElse(""));
-        int totalPages = books.getTotalPages();
-        if (totalPages > 0) {
-            List<Integer> pageNumbers = IntStream
-                    .rangeClosed(1, totalPages)
-                    .boxed()
-                    .collect(Collectors.toList());
-            model.addAttribute("pageNumbers", pageNumbers);
-        }
+//        int totalPages = books.getTotalPages();
+//        if (totalPages > 0) {
+//            List<Integer> pageNumbers = IntStream
+//                    .rangeClosed(1, totalPages)
+//                    .boxed()
+//                    .collect(Collectors.toList());
+//            model.addAttribute("pageNumbers", pageNumbers);
+//        }
+
+        bookService.findPageNumbers(books.getTotalPages())
+                .ifPresent(pageNumbers -> model.addAttribute("pageNumbers", pageNumbers));
         return "/admin";
     }
 

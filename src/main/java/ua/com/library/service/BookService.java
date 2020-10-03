@@ -12,7 +12,9 @@ import ua.com.library.entity.Book;
 import ua.com.library.repository.BookRepository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Service
 @AllArgsConstructor(onConstructor = @__(@Autowired))
@@ -20,13 +22,23 @@ public class BookService {
 
     BookRepository bookRepository;
 
-    public Page<Book> showPageList(int currentPage, int pageSize, String sortBy) {
+    public Page<Book> resolvePages(int currentPage, int pageSize, String sortBy) {
         PageRequest sorted = PageRequest.of(currentPage - 1, pageSize, Sort.by(sortBy));
-        Page<Book> books = bookRepository.findAll(sorted);
-        List<Book> result = books
-                .stream()
-                .collect(Collectors.toList());
 
-        return new PageImpl<Book>(result, sorted, bookRepository.count());
+        return bookRepository.findAll(sorted);
+    }
+
+    public Optional<List<Integer>> findPageNumbers(int quantity){
+
+        List<Integer> pages = null;
+        if (quantity > 1) {
+            pages = IntStream
+                    .rangeClosed(1, quantity)
+                    .boxed()
+                    .collect(Collectors.toList());
+        }
+
+        return Optional.ofNullable(pages);
+
     }
 }

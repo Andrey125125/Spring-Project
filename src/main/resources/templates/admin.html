@@ -10,18 +10,6 @@
 <div th:include="header"></div>
 
 
-
-<!--<form th:action="@{/admin}">-->
-<!--<select th:field="*{sortBy}">-->
-<!--    <option th:value="name" th:text="name" selected></option>-->
-<!--    <option th:value="publisher" th:text="publisher"></option>-->
-<!--    <option th:value="publishing_date" th:text="date"></option>-->
-<!--</select>-->
-
-<!--    <button id="id_btnReg" type="submit" name="sortBy" th:value="*{sortBy}"-->
-<!--            th:text="find"></button>-->
-
-<!--</form>-->
 <form th:action="@{/admin}">
     <span th:text="admin.sortby"></span>
     <select id="sortBy" name="sortBy">
