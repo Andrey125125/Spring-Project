@@ -32,7 +32,7 @@
         <th th:text="#{book.date}"></th>
         <th th:text="#{book.quantity}"></th>
 <!--        <th th:text="#{book.authors}"></th>-->
-        <th th:text="#{action.delete_book}"></th>
+
         <th th:text="#{action.edit_book}"></th>
     </tr>
     </thead>
@@ -46,7 +46,6 @@
         <td th:text="${book.quantity}"></td>
 <!--        <td th:text="${book.authors}"></td>-->
 
-        <td ><a th:href="@{'/admin/delete/{id}'(id=${book.id})}">delete</a></td>
         <td ><a th:href="@{'/admin/edit/{id}'(id=${book.id})}">edit</a></td>
 
     </tr>

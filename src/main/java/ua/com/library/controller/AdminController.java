@@ -9,10 +9,6 @@ import org.springframework.web.bind.annotation.*;
 import ua.com.library.entity.Book;
 import ua.com.library.service.BookService;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 @Controller
 @AllArgsConstructor(onConstructor = @__(@Autowired))

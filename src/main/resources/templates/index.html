@@ -5,19 +5,22 @@
     <title ></title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 
+
+
 </head>
 <body>
 <div th:include="header"></div>
 
-<p  th:text='#{title}'></p>
+<h1 align="center"  th:text='#{title}' ></h1>
 
-<div>
+
+<div class="container" align="center">
 
 
 
         <FORM class="px-4 py-3" method="POST" th:action="@{/login}">
             <div class="form-group row">
-                <label class="col-sm-2 col-form-label">enter your login and password</label>
+                <label class="col-sm-2 col-form-label">enter your login and password</label> <br>
                 <div class="col-sm-10">
                     <input name="login" type="login" size="35" placeholder="login" autocomplete="on" autofocus
                            required>
@@ -35,5 +38,7 @@
         </FORM>
 
 </div>
+
+
 </body>
 </html>
