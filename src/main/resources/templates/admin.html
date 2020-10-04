@@ -48,9 +48,15 @@
 
 <!--        <td ><a th:href="@{'/admin/edit/{id}'(id=${book.id})}">edit</a></td>-->
 
+<!--        "@{'/bus/edit/{code}'(code=${element.code})}"-->
         <td>
-            <form th:action="@{/admin/edit(size=${books.size}, currentPage=${currentPage - 1}, sortBy=${sortBy}, searchBy=${searchBy})}">
-                <input type="text" id="newQuantity" name="newQuantity" th:value="${book.quantity}" />
+            <form th:action="@{/admin/edit}">
+                <input type="number" id="newQuantity" name="newQuantity" th:value="${book.quantity}" />
+                <input type="hidden" id="id" name="id" th:value="${book.id}">
+<!--                <input type="hidden" id="size" name="size" th:value="${books.size}">-->
+                <input type="hidden" id="currentPage" name="currentPage" th:value="${currentPage}">
+                <input type="hidden" id="sortByBtn" name="sortByBtn" th:value="${sortBy}">
+                <input type="hidden" id="searchByBtn" name="searchByBtn" th:value="${searchBy}">
                 <button type="submit" th:text="change"></button>
             </form>
         </td>
@@ -76,6 +82,33 @@
         <a class="page-link" th:href="@{/admin(size=${books.size}, currentPage=${currentPage + 1}, sortBy=${sortBy}, searchBy=${searchBy})}"> >> </a>
     </div>
 </div>
+
+<br><br><br>
+
+
+<form th:action="@{/admin/addbook}", method="get">
+
+    <div class="form-group">
+        <label for="authorForm">Author</label>
+        <input type="text" class="form-control" id="authorForm" name="authorForm" placeholder="Author">
+    </div>
+    <div class="form-group">
+        <label for="bookNameForm">Book Name</label>
+        <input type="text" class="form-control" id="bookNameForm" name="bookNameForm" placeholder="Book Name">
+    </div>
+    <div class="form-group">
+        <label for="publisherForm">Publisher</label>
+        <input type="text" class="form-control" id="publisherForm" name="publisherForm" placeholder="Publisher">
+    </div>
+    <div class="amountForm">
+        <label for="authorForm">Amount</label>
+        <input type="number" class="form-control" id="amountForm" name="amountForm" placeholder="Amount">
+    </div>
+
+
+
+    <button type="submit" class="btn btn-primary">Add book</button>
+</form>
 
 </body>
 </html>

@@ -35,6 +35,29 @@ public class AdminController {
         return "/admin";
     }
 
+    @GetMapping("/admin/edit")
+    public String editBook(Model model,
+                           @RequestParam Integer currentPage,
+                           @RequestParam String sortByBtn,
+                           @RequestParam String searchByBtn,
+                           @RequestParam Long id,
+                           @RequestParam Integer newQuantity){
+
+        bookService.changeQuantityById(id, newQuantity);
+        return viewBooks(model, currentPage, sortByBtn, searchByBtn);
+
+    }
+
+    @GetMapping("/admin/addbook")
+    public String eddBook(Model model,
+                          @RequestParam String authorForm,
+                          @RequestParam String bookNameForm,
+                          @RequestParam String publisherForm,
+                          @RequestParam Integer amountForm) {
+        bookService.addBook(authorForm, bookNameForm, publisherForm, amountForm);
+        return "redirect:/admin";
+
+    }
 
 
 

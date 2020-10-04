@@ -33,8 +33,6 @@ public class RegistrationController {
 
         log.info("\n\n in the registerUser controller");
 
-        System.out.println("\n\n in the registerUser controller");
-
         try {
             user = userService.successfullyRegistered(user);
             model.addAttribute("user", user);
