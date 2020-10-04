@@ -7,15 +7,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import ua.com.library.entity.Book;
 import ua.com.library.service.BookService;
+import ua.com.library.service.OrderService;
 
 @Controller
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 public class ReaderController {
 
     private final BookService bookService;
+    private final OrderService orderService;
     private final static int pageSize = 2;
 
     @GetMapping("/reader")
@@ -37,8 +40,9 @@ public class ReaderController {
     }
 
     @GetMapping("/reader/order/{id}")
-    public String orderBook(){
+    public String orderBook(@PathVariable Integer id){
         //todo: finish implementation
-        return "";
+        orderService.orderBook(id);
+        return "redirect:/reader";
     }
 }
