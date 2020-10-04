@@ -2,6 +2,10 @@ package ua.com.library.service;
 
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,6 +26,7 @@ public class OrderService {
     UserRepository userRepository;
     OrderRepository orderRepository;
 
+
     @Transactional
     public void orderBook(long id){
         User user = userRepository.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName())
@@ -39,6 +44,14 @@ public class OrderService {
         bookRepository.save(book);
 
         orderRepository.save(order);
+
+
+    }
+
+    public Page<Order> resolvePagesOrderAdmin(int currentPage, int pageSize) {
+
+
+        return orderRepository.findAll(PageRequest.of(currentPage - 1, pageSize));
 
 
     }

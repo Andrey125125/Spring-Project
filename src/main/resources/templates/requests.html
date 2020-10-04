@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:with="lang=${#locale.language}" th:lang="${lang}"
+      contentType="text/html;charset=UTF-8">
+<head th:fragment="header">
+    <title ></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+</head>
+<body>
+<div th:include="header"></div>
+
+
+<table>
+    <thead>
+    <tr>
+        <th th:text="#{order.user.login}"></th>
+        <th th:text="#{order.book.name}"></th>
+<!--        <th th:text="#{book.date}"></th>-->
+<!--        <th th:text="#{book.quantity}"></th>-->
+<!--        &lt;!&ndash;        <th th:text="#{book.authors}"></th>&ndash;&gt;-->
+
+        <th th:text="#{action.edit_book}"></th>
+    </tr>
+    </thead>
+    <tr th:each="order : ${orders}">
+
+        <td th:text="${order.user.login}"></td>
+        <td th:text="${order.book.name}"></td>
+
+
+<!--        <td th:text="${book.publishingDate}"></td>-->
+<!--        <td th:text="${book.quantity}"></td>-->
+        <!--        <td th:text="${book.authors}"></td>-->
+
+        <!--        <td ><a th:href="@{'/admin/edit/{id}'(id=${book.id})}">edit</a></td>-->
+
+        <!--        "@{'/bus/edit/{code}'(code=${element.code})}"-->
+        <td>
+            <form th:action="@{'/admin/accept/{id}'(id=${order.id})}">
+
+                <button type="submit" th:text="order"></button>
+            </form>
+        </td>
+
+    </tr>
+</table>
+
+
+<div class="pagination">
+    <div th:if="${currentPage != 1}">
+        <a class="page-link" th:href="@{/requests(size=${orders.size}, currentPage=${currentPage - 1})}"> prev </a>
+    </div>
+
+    <ul class="pagination justify-content-center" th:if="${orders.totalPages > 0}"
+        th:each="pageNumber : ${pageNumbers}">
+        <li class="page-item" th:classappend="${pageNumber==orders.number + 1} ? 'active'">
+            <a th:href="@{/requests(size=${orders.size}, currentPage=${pageNumber})}"
+               th:text=${pageNumber}
+            ></a>
+        </li>
+    </ul>
+    <div th:if="${currentPage < orders.totalPages}">
+        <a class="page-link" th:href="@{/requests(size=${orders.size}, currentPage=${currentPage + 1})}"> next </a>
+    </div>
+</div>
+
+
+
+<br><br><br>
+
+
+
+</body>
+</html>
