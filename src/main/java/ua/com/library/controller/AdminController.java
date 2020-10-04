@@ -18,7 +18,7 @@ public class AdminController {
     private final static int pageSize = 2;
 
     @GetMapping("/admin")
-    public String viewBuses(Model model,
+    public String viewBooks(Model model,
                             @RequestParam(defaultValue = "1") Integer currentPage,
                             @RequestParam(defaultValue = "name") String sortBy,
                             @RequestParam(defaultValue = "") String searchBy) {
@@ -36,11 +36,6 @@ public class AdminController {
     }
 
 
-//    @GetMapping("/admin/edit/{id}")
-//    @ResponseBody
-//    public Book findBook(Long id){
-//        return bookService.findBookById(id);
-//    }
 
 
 }

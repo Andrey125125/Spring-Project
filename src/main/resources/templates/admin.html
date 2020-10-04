@@ -46,7 +46,14 @@
         <td th:text="${book.quantity}"></td>
 <!--        <td th:text="${book.authors}"></td>-->
 
-        <td ><a th:href="@{'/admin/edit/{id}'(id=${book.id})}">edit</a></td>
+<!--        <td ><a th:href="@{'/admin/edit/{id}'(id=${book.id})}">edit</a></td>-->
+
+        <td>
+            <form th:action="@{/admin/edit(size=${books.size}, currentPage=${currentPage - 1}, sortBy=${sortBy}, searchBy=${searchBy})}">
+                <input type="text" id="newQuantity" name="newQuantity" th:value="${book.quantity}" />
+                <button type="submit" th:text="change"></button>
+            </form>
+        </td>
 
     </tr>
 </table>
