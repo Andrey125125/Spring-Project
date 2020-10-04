@@ -21,7 +21,6 @@ public class RegistrationController {
     private final UserService userService;
     @GetMapping("/registration")
     public String registrationView(Model model) {
-        System.out.println("\n\n in the registration controller");
         model.addAttribute("user", new User());
         return "/registration";
     }

@@ -15,4 +15,8 @@ public interface BookRepository extends JpaRepository<Book, Long> {
 
     Page<Book> findAllByNameLike(String name, Pageable pageable);
 
+    Page<Book> findAllByQuantityGreaterThan(int num, Pageable pageable);
+
+    Page<Book> findAllByQuantityGreaterThanAndNameLike(int num, String name, Pageable pageable);
+
 }

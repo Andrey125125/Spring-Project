@@ -1,11 +1,83 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+<html xmlns:th="http://www.thymeleaf.org" th:with="lang=${#locale.language}" th:lang="${lang}"
+      contentType="text/html;charset=UTF-8">
+<head th:fragment="header">
+    <title ></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
 </head>
 <body>
-reader page
+<div th:include="header"></div>
+
+
+<form th:action="@{/reader}">
+    <span th:text="reader.sortby"></span>
+    <select id="sortBy" name="sortBy">
+        <option th:value="name" th:text="name" th:selected="${sortBy == 'name'}"></option>
+        <option th:value="publisher" th:text="publisher" th:selected="${sortBy == 'publisher'}"></option>
+        <option th:value="publishing_date" th:text="date" th:selected="${sortBy == 'publishing_date'}"></option>
+    </select>
+
+    <input type="text" id="searchBy" name="searchBy" th:value="${searchBy}" />
+    <button type="submit" th:text="search"></button>
+</form>
+
+
+
+<table>
+    <thead>
+    <tr>
+        <th th:text="#{book.name}"></th>
+        <th th:text="#{book.publisher}"></th>
+        <th th:text="#{book.date}"></th>
+        <th th:text="#{book.quantity}"></th>
+        <!--        <th th:text="#{book.authors}"></th>-->
+
+        <th th:text="#{action.edit_book}"></th>
+    </tr>
+    </thead>
+    <tr th:each="book : ${books}">
+
+        <td th:text="${book.name}"></td>
+        <td th:text="${book.publisher}"></td>
+
+
+        <td th:text="${book.publishingDate}"></td>
+        <td th:text="${book.quantity}"></td>
+        <!--        <td th:text="${book.authors}"></td>-->
+
+        <!--        <td ><a th:href="@{'/admin/edit/{id}'(id=${book.id})}">edit</a></td>-->
+
+        <!--        "@{'/bus/edit/{code}'(code=${element.code})}"-->
+
+
+    </tr>
+</table>
+
+
+<div class="pagination">
+    <div th:if="${currentPage != 1}">
+        <a class="page-link" th:href="@{/reader(size=${books.size}, currentPage=${currentPage - 1}, sortBy=${sortBy}, searchBy=${searchBy})}"> prev </a>
+    </div>
+
+    <ul class="pagination justify-content-center" th:if="${books.totalPages > 0}"
+        th:each="pageNumber : ${pageNumbers}">
+        <li class="page-item" th:classappend="${pageNumber==books.number + 1} ? 'active'">
+            <a th:href="@{/reader(size=${books.size}, currentPage=${pageNumber}, sortBy=${sortBy}, searchBy=${searchBy})}"
+               th:text=${pageNumber}
+            ></a>
+        </li>
+    </ul>
+    <div th:if="${currentPage < books.totalPages}">
+        <a class="page-link" th:href="@{/reader(size=${books.size}, currentPage=${currentPage + 1}, sortBy=${sortBy}, searchBy=${searchBy})}"> next </a>
+    </div>
+</div>
+
+
+
+<br><br><br>
+
+
 
 </body>
 </html>

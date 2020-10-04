@@ -23,7 +23,7 @@ public class AdminController {
                             @RequestParam(defaultValue = "name") String sortBy,
                             @RequestParam(defaultValue = "") String searchBy) {
 
-        Page<Book> books = bookService.resolvePages(currentPage, pageSize, sortBy, searchBy);
+        Page<Book> books = bookService.resolvePagesBookAdmin(currentPage, pageSize, sortBy, searchBy);
         model.addAttribute("books", books);
         model.addAttribute("currentPage", currentPage);
         model.addAttribute("sortBy", sortBy);

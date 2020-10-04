@@ -31,13 +31,25 @@ public class BookService {
     AuthorRepository authorRepository;
 
 
-    public Page<Book> resolvePages(int currentPage, int pageSize, String sortBy, String searchBy) {
+    public Page<Book> resolvePagesBookAdmin(int currentPage, int pageSize, String sortBy, String searchBy) {
 
         PageRequest sorted = PageRequest.of(currentPage - 1, pageSize, Sort.by(sortBy));
         if(searchBy.equals("")){
-            return bookRepository.findAll(sorted);
+            return bookRepository.findAll( sorted);
         } else {
             return bookRepository.findAllByNameLike(searchBy, sorted);
+        }
+
+
+    }
+
+    public Page<Book> resolvePagesBookReader(int currentPage, int pageSize, String sortBy, String searchBy) {
+
+        PageRequest sorted = PageRequest.of(currentPage - 1, pageSize, Sort.by(sortBy));
+        if(searchBy.equals("")){
+            return bookRepository.findAllByQuantityGreaterThan(0, sorted);
+        } else {
+            return bookRepository.findAllByQuantityGreaterThanAndNameLike(0, searchBy, sorted);
         }
 
 

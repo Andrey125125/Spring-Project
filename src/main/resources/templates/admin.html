@@ -65,23 +65,25 @@
 </table>
 
 
-<div>
+<div class="pagination">
     <div th:if="${currentPage != 1}">
-        <a class="page-link" th:href="@{/admin(size=${books.size}, currentPage=${currentPage - 1}, sortBy=${sortBy}, searchBy=${searchBy})}"> << </a>
+        <a class="page-link" th:href="@{/admin(size=${books.size}, currentPage=${currentPage - 1}, sortBy=${sortBy}, searchBy=${searchBy})}"> prev </a>
     </div>
 
-    <ul th:if="${books.totalPages > 0}"
+    <ul class="pagination justify-content-center" th:if="${books.totalPages > 0}"
         th:each="pageNumber : ${pageNumbers}">
-        <li th:classappend="${pageNumber==books.number + 1} ? 'active'">
+        <li class="page-item" th:classappend="${pageNumber==books.number + 1} ? 'active'">
             <a th:href="@{/admin(size=${books.size}, currentPage=${pageNumber}, sortBy=${sortBy}, searchBy=${searchBy})}"
                th:text=${pageNumber}
             ></a>
         </li>
     </ul>
     <div th:if="${currentPage < books.totalPages}">
-        <a class="page-link" th:href="@{/admin(size=${books.size}, currentPage=${currentPage + 1}, sortBy=${sortBy}, searchBy=${searchBy})}"> >> </a>
+        <a class="page-link" th:href="@{/admin(size=${books.size}, currentPage=${currentPage + 1}, sortBy=${sortBy}, searchBy=${searchBy})}"> next </a>
     </div>
 </div>
+
+
 
 <br><br><br>
 
