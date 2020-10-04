@@ -44,7 +44,12 @@
 
         <td th:text="${book.publishingDate}"></td>
         <td th:text="${book.quantity}"></td>
-        <!--        <td th:text="${book.authors}"></td>-->
+        <td>
+            <form th:action="@{'/rader/order/{id}'(id=${book.id})}">
+
+                <button type="submit" th:text="order"></button>
+            </form>
+        </td>
 
         <!--        <td ><a th:href="@{'/admin/edit/{id}'(id=${book.id})}">edit</a></td>-->
 

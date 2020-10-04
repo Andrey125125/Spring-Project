@@ -35,4 +35,10 @@ public class ReaderController {
 
         return "/reader";
     }
+
+    @GetMapping("/reader/order/{id}")
+    public String orderBook(){
+        //todo: finish implementation
+        return "";
+    }
 }
