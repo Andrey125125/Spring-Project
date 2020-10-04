@@ -33,15 +33,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/reader", "reader/**").hasAnyAuthority("READER")
                 .antMatchers("/admin", "admin/**", "/admin/edit").hasAnyAuthority("ADMIN")
 
-                .anyRequest().authenticated()
-                .and()
-                .csrf().disable().formLogin().failureUrl("/login?loginError=true").loginPage("/login").successHandler(loginHandler).permitAll()
-                .usernameParameter("login")
-                .passwordParameter("password")
                 .and()
                 .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).permitAll()
                 .and().exceptionHandling()
-                .accessDeniedPage("/error");
+                .accessDeniedPage("/error")
+                .and()
+                .csrf().disable().formLogin().failureUrl("/login?loginError=true").loginPage("/login").successHandler(loginHandler).permitAll()
+                .usernameParameter("login")
+                .passwordParameter("password");
+
 
 
 
