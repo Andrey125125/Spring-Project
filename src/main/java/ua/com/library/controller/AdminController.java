@@ -36,4 +36,11 @@ public class AdminController {
     }
 
 
+//    @GetMapping("/admin/edit/{id}")
+//    @ResponseBody
+//    public Book findBook(Long id){
+//        return bookService.findBookById(id);
+//    }
+
+
 }

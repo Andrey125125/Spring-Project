@@ -47,4 +47,8 @@ public class BookService {
         return Optional.ofNullable(pages);
 
     }
+
+    public Optional<Book> findBookById(Long id){
+        return bookRepository.findById(id);
+    }
 }
