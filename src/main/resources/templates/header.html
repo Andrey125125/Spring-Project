@@ -19,22 +19,22 @@
         <ul class="navbar-nav">
             <li class="nav-item"><a class="nav-link" th:if="${session.role} != null" th:text="${session.role}"></a></li>
             <li class="nav-item"><a class="nav-link" href="admin"
-                                    th:if="${session.role == 'ADMIN'}" th:text="'books manager'"></a>
+                                    th:if="${session.role == 'ADMIN'}" th:text="#{header.admin.book_manager}"></a>
 
             <li class="nav-item"><a class="nav-link" href="requests"
-                                    th:if="${(session.role == 'ADMIN')}" th:text="'requests manager'"></a>
+                                    th:if="${(session.role == 'ADMIN')}" th:text="#{header.admin.req_manager}"></a>
 
             <li class="nav-item"><a class="nav-link" href="reader"
-                                    th:if="${session.role == 'READER'}" th:text="'find books'"></a>
+                                    th:if="${session.role == 'READER'}" th:text="#{header.reader.find_books}"></a>
 
             <li class="nav-item"><a class="nav-link" href="cabinet"
-                                    th:if="${session.role == 'READER'}" th:text="'cabinet'"></a>
+                                    th:if="${session.role == 'READER'}" th:text="#{header.reader.cabinet}"></a>
 
             <li class="nav-item"><a class="nav-link" href="/logout" th:if="${session.role} != null"
                                     th:text="#{menu.logout}"></a>
 
             <li class="nav-item-right"><a class="nav-link" href="/" th:if="${session.role} == null"
-                                    th:text="register"></a>
+                                    th:text="#{header.register}"></a>
 
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"

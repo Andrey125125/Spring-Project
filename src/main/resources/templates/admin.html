@@ -24,8 +24,8 @@
 
 
 
-<table>
-    <thead>
+<table class="table table-striped">
+    <thead class="thead-dark">
     <tr>
         <th th:text="#{book.name}"></th>
         <th th:text="#{book.publisher}"></th>
@@ -67,19 +67,19 @@
 
 <div class="pagination">
     <div th:if="${currentPage != 1}">
-        <a class="page-link" th:href="@{/admin(size=${books.size}, currentPage=${currentPage - 1}, sortBy=${sortBy}, searchBy=${searchBy})}"> prev </a>
+        <a class="page-link" th:href="@{/admin(size=${books.size}, currentPage=${currentPage - 1}, sortBy=${sortBy}, searchBy=${searchBy})}" th:text="#{admin.pagination.prev}"> </a>
     </div>
 
     <ul class="pagination justify-content-center" th:if="${books.totalPages > 0}"
         th:each="pageNumber : ${pageNumbers}">
         <li class="page-item" th:classappend="${pageNumber==books.number + 1} ? 'active'">
             <a th:href="@{/admin(size=${books.size}, currentPage=${pageNumber}, sortBy=${sortBy}, searchBy=${searchBy})}"
-               th:text=${pageNumber}
+               th:text=" ${pageNumber} "
             ></a>
         </li>
     </ul>
     <div th:if="${currentPage < books.totalPages}">
-        <a class="page-link" th:href="@{/admin(size=${books.size}, currentPage=${currentPage + 1}, sortBy=${sortBy}, searchBy=${searchBy})}"> next </a>
+        <a class="page-link" th:href="@{/admin(size=${books.size}, currentPage=${currentPage + 1}, sortBy=${sortBy}, searchBy=${searchBy})}" th:text="#{admin.pagination.next}">  </a>
     </div>
 </div>
 
@@ -91,25 +91,25 @@
 <form th:action="@{/admin/addbook}", method="get">
 
     <div class="form-group">
-        <label for="authorForm">Author</label>
-        <input type="text" class="form-control" id="authorForm" name="authorForm" placeholder="Author">
+        <label for="authorForm" th:text="#{admin.add.book.author}"></label>
+        <input type="text" class="form-control" id="authorForm" name="authorForm" th:placeholder="#{admin.add.book.author}">
     </div>
     <div class="form-group">
-        <label for="bookNameForm">Book Name</label>
-        <input type="text" class="form-control" id="bookNameForm" name="bookNameForm" placeholder="Book Name">
+        <label for="bookNameForm" th:text="#{admin.add.book.name}"></label>
+        <input type="text" class="form-control" id="bookNameForm" name="bookNameForm" th:placeholder="#{admin.add.book.name}">
     </div>
     <div class="form-group">
-        <label for="publisherForm">Publisher</label>
-        <input type="text" class="form-control" id="publisherForm" name="publisherForm" placeholder="Publisher">
+        <label for="publisherForm" th:text="#{admin.add.book.publisher}"></label>
+        <input type="text" class="form-control" id="publisherForm" name="publisherForm" th:placeholder="#{admin.add.book.publisher}">
     </div>
     <div class="amountForm">
-        <label for="authorForm">Amount</label>
-        <input type="number" class="form-control" id="amountForm" name="amountForm" placeholder="Amount">
+        <label for="authorForm" th:text="#{admin.add.book.amount}"></label>
+        <input type="number" class="form-control" id="amountForm" name="amountForm" th:placeholder="#{admin.add.book.amount}">
     </div>
 
 
 
-    <button type="submit" class="btn btn-primary">Add book</button>
+    <button type="submit" class="btn btn-primary" th:text="#{admin.add.btn}"></button>
 </form>
 
 </body>

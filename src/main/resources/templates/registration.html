@@ -1,24 +1,29 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org" th:with="lang=${#locale.language}" th:lang="${lang}">
+<html xmlns:th="http://www.thymeleaf.org" th:with="lang=${#locale.language}" th:lang="${lang}"
+      contentType="text/html;charset=UTF-8">
 <head th:fragment="header">
-    <title th:text='#{title}'></title>
+    <title ></title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+
+
 </head>
 <body>
-<div><p th:text="title + '. ' + registration.title"></p></div>
+<div th:include="header"></div>
+<div align="center"><p th:text="title + '. ' + registration.title"></p></div>
 <div th:if="${badCredentials == true}">
     <p class="h4" th:text="registration.exists">
 </div>
-<div th:if="${session.role == null}">
+<div th:if="${session.role == null}" align="center">
     <FORM  method="POST" th:object="${user}" th:action="@{/registerUser}">
-        <div >
+        <div class="form-group">
             <label th:text="registration.name + ':'"></label>
             <div >
                 <input name="name" type="text" size="35" th:placeholder="registration.name" th:field="${user.name}"
                        autofocus required>
             </div>
         </div>
-        <div >
+        <div class="form-group">
             <label  th:text="registration.surname + ':'"></label>
             <div >
                 <input name="name" type="text" size="35" th:placeholder="registration.surname" th:field="${user.surname}"
@@ -26,21 +31,21 @@
             </div>
         </div>
 
-        <div >
+        <div class="form-group">
             <label  th:text="registration.login + ':'"></label>
             <div >
                 <input name="name" type="text" size="35" th:placeholder="registration.login" th:field="${user.login}"
                        autofocus required>
             </div>
         </div>
-        <div >
+        <div class="form-group">
             <label >E-mail:</label>
             <div >
                 <input name="email" type="email" size="35" th:placeholder="E-mail" th:field="${user.email}"
                        autocomplete="on" autofocus required>
             </div>
         </div>
-        <div >
+        <div class="form-group">
             <label  th:text="registration.password + ':'"></label>
             <div >
                 <input id="passwordId" name="password" type="password" th:placeholder="registration.password"
@@ -48,7 +53,7 @@
                        size="35" maxlength="35" >
             </div>
         </div>
-        <div >
+        <div class="form-group">
             <label  th:text="registration.confirm_password + ':'"></label>
             <div >
                 <input id="passwordAgainId" name="confirm_password" type="password" th:placeholder="registration.confirm"
@@ -58,6 +63,12 @@
         <button id="id_btnReg" type="submit" class="btn btn-primary" name="btnReg"
                 th:text="registration.reg"></button>
     </FORM>
+
+
+
+
+
+
 </div>
 
 <!--<script type="text/javascript" src="/static/js/passwordCheck.js"></script>-->
