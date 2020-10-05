@@ -77,6 +77,13 @@ public class AdminController {
         return "/requests";
     }
 
+    @GetMapping("/admin/accept/{id}")
+    public String acceptOrder(@PathVariable Integer id){
+        //todo: finish implementation
+        orderService.acceptBook(id);
+        return "redirect:/requests";
+    }
+
 
 
 

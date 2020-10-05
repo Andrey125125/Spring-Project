@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:with="lang=${#locale.language}" th:lang="${lang}"
+      contentType="text/html;charset=UTF-8">
+<head th:fragment="header">
+    <title ></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+</head>
+<body>
+<div th:include="header"></div>
+
+<a class="nav-link" href="admin"
+   th:if="${(session.role == 'ADMIN')}" th:text="#{action.error_return}"></a>
+
+<a class="nav-link" href="reader"
+   th:if="${(session.role == 'READER')}" th:text="#{action.error_return}"></a>
+
+<a class="nav-link" href="/login" th:if="${session.role} == null" th:text="#{action.error_return}"></a>
+
+</body>
+</html>

@@ -10,8 +10,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import ua.com.library.entity.Book;
+import ua.com.library.entity.Order;
 import ua.com.library.service.BookService;
 import ua.com.library.service.OrderService;
+
+import java.util.List;
 
 @Controller
 @AllArgsConstructor(onConstructor = @__(@Autowired))
@@ -39,10 +42,29 @@ public class ReaderController {
         return "/reader";
     }
 
+
+    @GetMapping("/cabinet")
+    public String viewInfo(Model model) {
+
+        List<Order> orders = orderService.resolveBooksToReturn();
+
+        model.addAttribute("orders", orders);
+
+
+
+        return "/cabinet";
+    }
+
     @GetMapping("/reader/order/{id}")
     public String orderBook(@PathVariable Integer id){
-        //todo: finish implementation
         orderService.orderBook(id);
         return "redirect:/reader";
+    }
+
+    @GetMapping("/reader/return/{id}")
+    public String returnBook(@PathVariable Integer id){
+
+        orderService.returnBook(id);
+        return "redirect:/cabinet";
     }
 }

@@ -17,6 +17,7 @@ import ua.com.library.repository.OrderRepository;
 import ua.com.library.repository.UserRepository;
 
 import java.sql.Date;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 @Service
@@ -30,7 +31,7 @@ public class OrderService {
     @Transactional
     public void orderBook(long id){
         User user = userRepository.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName())
-                .orElseThrow( () ->new RuntimeException("your session have expired"));
+                .orElseThrow( () -> new RuntimeException("your session have expired"));
 
         Book book = bookRepository.getOne(id);
 
@@ -48,10 +49,42 @@ public class OrderService {
 
     }
 
+
+    @Transactional
+    public void returnBook(long id){
+
+        Order order = orderRepository.getOne(id);
+
+        Book book = order.getBook();
+        book.setQuantity(book.getQuantity() + 1);
+        bookRepository.save(book);
+
+        orderRepository.delete(order);
+
+
+    }
+
+    public void acceptBook(long id){
+        Order order = orderRepository.getOne(id);
+        order.setStatus(Order.Status.ADMITTED);
+        orderRepository.save(order);
+    }
+
     public Page<Order> resolvePagesOrderAdmin(int currentPage, int pageSize) {
 
 
-        return orderRepository.findAll(PageRequest.of(currentPage - 1, pageSize));
+        return orderRepository.findAllByStatus(Order.Status.REQUESTED,  PageRequest.of(currentPage - 1, pageSize));
+
+
+    }
+
+    public List<Order> resolveBooksToReturn(){
+
+        User user = userRepository.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName())
+                .orElseThrow( () -> new RuntimeException("your session have expired"));
+
+        return orderRepository.findAllByUserAndStatus(user, Order.Status.ADMITTED);
+
 
 
     }

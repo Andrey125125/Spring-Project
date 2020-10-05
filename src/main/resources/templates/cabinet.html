@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:with="lang=${#locale.language}" th:lang="${lang}"
+      contentType="text/html;charset=UTF-8">
+<head th:fragment="header">
+    <title > Cabinet </title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+</head>
+<body>
+<div th:include="header"></div>
+
+
+<table class="table table-striped">
+    <thead class="thead-dark">
+    <tr>
+        <th th:text="#{order.book.name}"></th>
+        <th th:text="#{order.returningDate}"></th>
+        <!--        <th th:text="#{book.date}"></th>-->
+        <!--        <th th:text="#{book.quantity}"></th>-->
+        <!--        &lt;!&ndash;        <th th:text="#{book.authors}"></th>&ndash;&gt;-->
+
+        <th th:text="#{action.return_book}"></th>
+    </tr>
+    </thead>
+    <tr th:each="order : ${orders}">
+
+        <td th:text="${order.book.name}"></td>
+        <td th:text="${order.returningDate}"></td>
+
+        <td>
+            <form th:action="@{'/reader/return/{id}'(id=${order.id})}">
+
+                <button type="submit" th:text="return"></button>
+            </form>
+        </td>
+
+    </tr>
+</table>
+
+
+
+
+
+</body>
+</html>
