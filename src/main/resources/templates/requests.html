@@ -9,17 +9,20 @@
 <body>
 <div th:include="header"></div>
 
+<div class="container">
+
+    <br>
 
 <table class="table table-striped">
     <thead class="thead-dark">
     <tr>
-        <th th:text="#{order.user.login}"></th>
-        <th th:text="#{order.book.name}"></th>
+        <th th:text="'user login'"></th>
+        <th th:text="'book'"></th>
 <!--        <th th:text="#{book.date}"></th>-->
 <!--        <th th:text="#{book.quantity}"></th>-->
 <!--        &lt;!&ndash;        <th th:text="#{book.authors}"></th>&ndash;&gt;-->
 
-        <th th:text="#{action.edit_book}"></th>
+        <th th:text="'admit'"></th>
     </tr>
     </thead>
     <tr th:each="order : ${orders}">
@@ -68,7 +71,7 @@
 
 <br><br><br>
 
-
+</div>
 
 </body>
 </html>

@@ -29,7 +29,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/", "/index", "/registration", "/login", "/registerUser").permitAll()
+                .antMatchers("/", "/index", "/registration", "/login", "/registerUser").anonymous()
                 .antMatchers("/reader", "reader/**").hasAnyAuthority("READER")
                 .antMatchers("/admin", "admin/**", "/admin/edit").hasAnyAuthority("ADMIN")
 

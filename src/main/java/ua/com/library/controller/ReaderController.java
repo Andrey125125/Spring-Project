@@ -22,7 +22,7 @@ public class ReaderController {
 
     private final BookService bookService;
     private final OrderService orderService;
-    private final static int pageSize = 2;
+    private final static int pageSize = 4;
 
     @GetMapping("/reader")
     public String viewBooks(Model model,

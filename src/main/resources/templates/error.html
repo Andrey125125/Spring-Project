@@ -8,7 +8,7 @@
 </head>
 <body>
 <div th:include="header"></div>
-
+<div class="container">
 <a class="nav-link" href="admin"
    th:if="${(session.role == 'ADMIN')}" th:text="#{action.error_return}"></a>
 
@@ -16,6 +16,6 @@
    th:if="${(session.role == 'READER')}" th:text="#{action.error_return}"></a>
 
 <a class="nav-link" href="/login" th:if="${session.role} == null" th:text="#{action.error_return}"></a>
-
+</div>
 </body>
 </html>

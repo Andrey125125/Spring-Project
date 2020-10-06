@@ -57,6 +57,7 @@ public class BookService {
 
     public Optional<List<Integer>> findPageNumbers(int quantity){
 
+        //todo: refactor
         List<Integer> pages = null;
         if (quantity > 1) {
             pages = IntStream
@@ -97,7 +98,7 @@ public class BookService {
 
 
 
-        List authors = new ArrayList<Author>();
+        List<Author> authors = new ArrayList<>();
         authors.add(temp.orElse(author));
 
         Book book = Book.builder()

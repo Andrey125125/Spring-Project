@@ -18,7 +18,7 @@ public class AdminController {
 
     private final BookService bookService;
     private final OrderService orderService;
-    private final static int pageSize = 2;
+    private final static int pageSize = 4;
 
     @GetMapping("/admin")
     public String viewBooks(Model model,
@@ -32,7 +32,7 @@ public class AdminController {
         model.addAttribute("sortBy", sortBy);
         model.addAttribute("searchBy", searchBy);
 
-        bookService.findPageNumbers(books.getTotalPages())
+        bookService.findPageNumbers(books.getTotalPages())  //no database requests here!
                 .ifPresent(pageNumbers -> model.addAttribute("pageNumbers", pageNumbers));
 
         return "/admin";
@@ -71,7 +71,7 @@ public class AdminController {
         model.addAttribute("currentPage", currentPage);
 
 
-        bookService.findPageNumbers(orders.getTotalPages())
+        bookService.findPageNumbers(orders.getTotalPages())  //no database requests here
                 .ifPresent(pageNumbers -> model.addAttribute("pageNumbers", pageNumbers));
 
         return "/requests";
@@ -79,7 +79,7 @@ public class AdminController {
 
     @GetMapping("/admin/accept/{id}")
     public String acceptOrder(@PathVariable Integer id){
-        //todo: finish implementation
+
         orderService.acceptBook(id);
         return "redirect:/requests";
     }

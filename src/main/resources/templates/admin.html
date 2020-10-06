@@ -8,8 +8,8 @@
 </head>
 <body>
 <div th:include="header"></div>
-
-
+<br><br>
+<div class="container">
 <form th:action="@{/admin}">
     <span th:text="admin.sortby"></span>
     <select id="sortBy" name="sortBy">
@@ -64,6 +64,7 @@
     </tr>
 </table>
 
+    <br>
 
 <div class="pagination">
     <div th:if="${currentPage != 1}">
@@ -107,10 +108,10 @@
         <input type="number" class="form-control" id="amountForm" name="amountForm" th:placeholder="#{admin.add.book.amount}">
     </div>
 
-
+    <br>
 
     <button type="submit" class="btn btn-primary" th:text="#{admin.add.btn}"></button>
 </form>
-
+</div>
 </body>
 </html>
