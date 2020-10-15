@@ -57,7 +57,6 @@ public class BookService {
 
     public Optional<List<Integer>> findPageNumbers(int quantity){
 
-        //todo: refactor
         List<Integer> pages = null;
         if (quantity > 1) {
             pages = IntStream
@@ -86,17 +85,12 @@ public class BookService {
     public void addBook(String authorName, String bookName, String publisher, int amount){
 
 
-
-
         Author author = Author.builder().name(authorName).build();
 
         Optional<Author> temp = authorRepository.findByName(authorName);
         if ( ! temp.isPresent()){
             authorRepository.save(author);
         }
-
-
-
 
         List<Author> authors = new ArrayList<>();
         authors.add(temp.orElse(author));

@@ -2,7 +2,6 @@ package ua.com.library.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import ua.com.library.entity.Author;
-import ua.com.library.entity.Book;
 
 import java.util.Optional;
 

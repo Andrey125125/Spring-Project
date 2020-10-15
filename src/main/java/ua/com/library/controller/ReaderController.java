@@ -36,7 +36,7 @@ public class ReaderController {
         model.addAttribute("sortBy", sortBy);
         model.addAttribute("searchBy", searchBy);
 
-        bookService.findPageNumbers(books.getTotalPages())
+        bookService.findPageNumbers(books.getTotalPages())  //no database requests here
                 .ifPresent(pageNumbers -> model.addAttribute("pageNumbers", pageNumbers));
 
         return "/reader";
