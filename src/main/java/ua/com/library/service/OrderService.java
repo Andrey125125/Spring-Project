@@ -26,12 +26,12 @@ public class OrderService {
     OrderRepository orderRepository;
 
 
-    @Transactional
+
     public void orderBook(long id){
         User user = userRepository.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName())
                 .orElseThrow( () -> new RuntimeException("your session have expired"));
 
-        Book book = bookRepository.getOne(id);
+        Book book = decreaseQuantityAndReturnBook(id);
 
         Order order = Order.builder()
                 .book(book).user(user)
@@ -39,23 +39,30 @@ public class OrderService {
                 .returningDate(new Date(System.currentTimeMillis() + TimeUnit.DAYS.toMillis(7)))
                 .build();
 
-        book.setQuantity(book.getQuantity() - 1);
-        bookRepository.save(book);
-
         orderRepository.save(order);
 
 
     }
 
-
     @Transactional
+    public Book decreaseQuantityAndReturnBook(long id){
+        Book book = bookRepository.getOne(id);
+        int quantity = book.getQuantity() - 1;
+        if (quantity < 0) throw new RuntimeException("no enought books");
+        book.setQuantity(quantity);
+        bookRepository.save(book);
+        return book;
+    }
+
+
+
+
     public void returnBook(long id){
 
         Order order = orderRepository.getOne(id);
 
-        Book book = order.getBook();
-        book.setQuantity(book.getQuantity() + 1);
-        bookRepository.save(book);
+        long bookId = order.getBook().getId();
+        bookRepository.incrementQuantityById(bookId);
 
         orderRepository.delete(order);
 
@@ -63,9 +70,10 @@ public class OrderService {
     }
 
     public void acceptBook(long id){
-        Order order = orderRepository.getOne(id);
-        order.setStatus(Order.Status.ADMITTED);
-        orderRepository.save(order);
+//        Order order = orderRepository.getOne(id);
+//        order.setStatus(Order.Status.ADMITTED);
+//        orderRepository.save(order);
+        orderRepository.changeStatusById(Order.Status.ADMITTED, id);
     }
 
     public Page<Order> resolvePagesOrderAdmin(int currentPage, int pageSize) {

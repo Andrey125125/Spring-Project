@@ -1,10 +1,8 @@
 package ua.com.library.service;
 
 import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -15,13 +13,13 @@ import ua.com.library.repository.AuthorRepository;
 import ua.com.library.repository.BookRepository;
 
 
-import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.*;
 import java.sql.Date;
-import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+
+
+
 
 @Service
 @AllArgsConstructor(onConstructor = @__(@Autowired))
@@ -29,6 +27,9 @@ public class BookService {
 
     BookRepository bookRepository;
     AuthorRepository authorRepository;
+
+
+    //todo: refactor ChangeQuantityById
 
 
     public Page<Book> resolvePagesBookAdmin(int currentPage, int pageSize, String sortBy, String searchBy) {
@@ -43,7 +44,7 @@ public class BookService {
 
     }
 
-    public Page<Book> resolvePagesBookReader(int currentPage, int pageSize, String sortBy, String searchBy) {
+    public Page<Book> resolvePagesBookReader(int currentPage, int pageSize, String sortBy,  String searchBy) {
 
         PageRequest sorted = PageRequest.of(currentPage - 1, pageSize, Sort.by(sortBy));
         if(searchBy.equals("")){
@@ -73,39 +74,56 @@ public class BookService {
         return bookRepository.findById(id);
     }
 
-    @Transactional
+
     public void changeQuantityById(long id, int quantity){
-        Book book = bookRepository.getOne(id);
-        book.setQuantity(quantity);
-        bookRepository.save(book);
+        bookRepository.updateQuantityById(quantity, id);
 
     }
 
-    @Transactional
-    public void addBook(String authorName, String bookName, String publisher, int amount){
 
 
-        Author author = Author.builder().name(authorName).build();
+    //todo: refactor this
+    public void addBook(String authorsNamesString, String bookName, String publisher, int amount){
 
-        Optional<Author> temp = authorRepository.findByName(authorName);
-        if ( ! temp.isPresent()){
-            authorRepository.save(author);
+        List<Book> books = bookRepository.findAllByNameAndPublisher(bookName, publisher);
+        HashSet<String> givenAuthorsNames = new HashSet<String> (Arrays.asList(authorsNamesString.split(",[\\s]*")));
+        HashSet<String> authorsNames = new HashSet<>();
+
+        for(Book book: books){
+            for (Author author: book.getAuthors()) {
+                authorsNames.add(author.getName());
+            }
+            if (authorsNames.equals(givenAuthorsNames)) throw new RuntimeException("book already exist!");
+
         }
 
+
         List<Author> authors = new ArrayList<>();
-        authors.add(temp.orElse(author));
+        for (String author: givenAuthorsNames){
+            Optional<Author> optionalAuthor =  authorRepository.findByName(author);
+            if (optionalAuthor.isPresent()) authors.add(optionalAuthor.get());
+            else {
+                Author author1 = Author.builder().name(author).build();
+                authorRepository.save(author1);
+                authors.add(author1);
+            }
+        }
 
         Book book = Book.builder()
                 .authors(authors)
                 .name(bookName)
                 .publisher(publisher)
-                .quantity(amount)
                 .publishingDate(new Date(System.currentTimeMillis()))
+                .quantity(amount)
                 .build();
-
         bookRepository.save(book);
 
+
+
     }
+
+
+
 
 
 
