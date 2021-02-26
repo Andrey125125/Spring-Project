@@ -2,9 +2,7 @@ package ua.com.library.service;
 
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ua.com.library.entity.Author;
@@ -85,6 +83,7 @@ public class BookService {
     //todo: refactor this
     public void addBook(String authorsNamesString, String bookName, String publisher, int amount){
 
+        //checkIfAlreadyExist();
         List<Book> books = bookRepository.findAllByNameAndPublisher(bookName, publisher);
         HashSet<String> givenAuthorsNames = new HashSet<String> (Arrays.asList(authorsNamesString.split(",[\\s]*")));
         HashSet<String> authorsNames = new HashSet<>();
@@ -121,6 +120,25 @@ public class BookService {
 
 
     }
+
+
+
+    public void checkIfAlreadyExist(){
+
+
+        List<Author> authors = new ArrayList<>();
+        authors.add(Author.builder().name("a6").build());
+        authors.add(Author.builder().name("a5").build());
+        Example<Book> example = Example.of(Book.builder()
+                .authors(authors)
+                .name("book1")
+                .publisher("amazon")
+                .build());
+
+        if (bookRepository.exists(example)) throw new RuntimeException("exampl work");
+    }
+
+
 
 
 
