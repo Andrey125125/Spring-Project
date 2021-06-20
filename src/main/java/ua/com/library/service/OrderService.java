@@ -94,4 +94,12 @@ public class OrderService {
 
 
     }
+
+
+    public boolean allowUserOrder(){
+        User user = userRepository.findByLogin(SecurityContextHolder.getContext().getAuthentication().getName())
+                .orElseThrow( () -> new RuntimeException("your session have expired"));
+
+        return orderRepository.countAllByUserAndStatus(user, Order.Status.ADMITTED) <= 3;
+    }
 }

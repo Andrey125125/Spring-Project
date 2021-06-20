@@ -26,4 +26,6 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     @Query("update Order o set o.status =:status where o.id=:id")
     void changeStatusById(Order.Status status, long id);
 
+    int countAllByUserAndStatus(User user, Order.Status status);
+
 }
